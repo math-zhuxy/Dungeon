@@ -1,4 +1,5 @@
 import openai
+import utils
 
 class AIChat:
     def __init__(self):
@@ -8,9 +9,16 @@ class AIChat:
             api_key = MY_API_KEY, 
             base_url = OPENAI_URL
         )
+        try:
+            with open(file = "prompt.md", mode = 'r', encoding = 'utf-8') as file:
+                BASE_PROMPT = file.read()
+        except FileNotFoundError:
+            print(f"文件 prompt.md 未找到。")
+        except Exception as e:
+            print(f"读取文件时发生错误: {e}")
         self.AllMessages = [
             {
                 "role": "system",
-                "content": "尽量使用提供的函数，而且可能需要多步函数调用。你不需要知道excel文件的名称或者位置，这个信息是默认的。如果用户没有说明具体的工作表，默认工作表名称为Sheet1。你的输出必须是中文。"
+                "content": BASE_PROMPT
             }
         ]
