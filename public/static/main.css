@@ -1,0 +1,10 @@
+body {
+    margin: 0; /* 移除默认边距 */
+    padding: 0; /* 移除默认填充 */
+    background-image: url('img/bg.jpg'); /* 设置背景图片路径 */
+    background-size: cover; /* 调整图片大小以覆盖整个元素 */
+    background-position: center; /* 将背景图片居中 */
+    background-repeat: no-repeat; /* 防止背景图片重复 */
+    background-attachment: fixed; /* 固定背景图片，使其不随页面滚动 */
+    height: 100vh; /* 设置 body 高度为视口高度 */
+}
