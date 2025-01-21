@@ -1,6 +1,4 @@
 import openai
-import utils
-
 class AIChat:
     def __init__(self):
         MY_API_KEY = "sk-ImhibhfhCvKHSI9y5e5806C924F243E895D8255251FeA4D4"
@@ -24,37 +22,39 @@ class AIChat:
             }
         ]
         self.echos = 1
-    def communicate(self, input: str) -> str:
-        # 如果是第一轮对话，初始化对话
-        if self.echos == 1:
-            self.AllMessages.append(
-                {
-                    "role": "user",
-                    "content": "我们开始吧"
-                }
-            )
-        else:
-            # 否则，添加用户的输入到对话历史中
-            self.AllMessages.append(
-                {
-                    "role": "user",
-                    "content": input
-                }
-            )
-        
-        self.echos += 1
-        
-        # 调用OpenAI API获取回复
-        ai_response = self.OpenAI.chat.completions.create(
-            model=self.ai_model,
-            messages=self.AllMessages
+    def communicate(self, input: str) ->str:
+        self.AllMessages.append(
+            {
+                "role": "user",
+                "content": input
+            }
         )
-        
-        # 提取AI的回复并添加到对话历史中
-        assistant_message = ai_response.choices[0].message
-        self.AllMessages.append({
-            "role": assistant_message.role,
-            "content": assistant_message.content
-        })
+        self.echos += 1
+        try:
+            # 调用OpenAI API获取回复
+            ai_response = self.OpenAI.chat.completions.create(
+                model=self.ai_model,
+                messages=self.AllMessages
+            )
+            
+            # 提取AI的回复并添加到对话历史中
+            assistant_message = ai_response.choices[0].message
+            self.AllMessages.append({
+                "role": assistant_message.role,
+                "content": assistant_message.content
+            })
+
+        except openai.AuthenticationError as e:
+            return f"API密钥错误: {e}"
+        except openai.BadRequestError as e:
+            return f"请求错误：{e}"
+        except openai.ContentFilterFinishReasonError as e: 
+            return f"内容过滤错误：{e}"
+        except openai.InternalServerError as e:
+            return f"服务器错误: {e}"
+        except openai.APITimeoutError as e:
+            return f"API超时错误: {e}"
+        except Exception as e:
+            return f"未知错误: {e}"
         
         return assistant_message.content
