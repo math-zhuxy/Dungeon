@@ -1,10 +1,56 @@
 body {
-    margin: 0; /* 移除默认边距 */
-    padding: 0; /* 移除默认填充 */
-    background-image: url('img/bg.jpg'); /* 设置背景图片路径 */
-    background-size: cover; /* 调整图片大小以覆盖整个元素 */
-    background-position: center; /* 将背景图片居中 */
-    background-repeat: no-repeat; /* 防止背景图片重复 */
-    background-attachment: fixed; /* 固定背景图片，使其不随页面滚动 */
-    height: 100vh; /* 设置 body 高度为视口高度 */
+    background-image: url('img/bg.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+}
+
+#chat-header {
+    display: flex;
+    justify-content: center;
+}
+
+#chat-header h1 {
+    font-size: 50px;
+    margin: 0;
+    padding: 15px;
+}
+
+.chat-input {
+    display: flex;
+    padding: 0 10px;
+}
+
+.chat-input input {
+    height: 100%;
+    flex: 1;
+    padding: 10px;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.chat-input button {
+    height: 100%;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #064f9d;
+}
+
+.chat-input button.disabled-button {
+    background-color: #cccccc; 
+    cursor: not-allowed; 
+}
+
+.chat-input button.disabled-button:hover {
+    background-color: #cccccc; 
+    cursor: not-allowed; 
 }
